@@ -1,1 +1,41 @@
-<div id="app"></div>
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UFT-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+<button id="btnLogOut" onclick="logOut()">logout</button>
+
+<script src="https://static.line-scdn.net/liff/edge/vsrsions/2.3.0/sdk.js"></script>
+<script>
+ async function main() {
+  await liff.init({ liffId: "" })
+   if (liff.isLoggedIn()) {
+    getUserProfile()
+   } else {
+    liff.login()
+   }
+  }
+  main()
+  
+  async function getUserProfile() {
+   const profile = await liff.getProfile()
+   document.getelementById("pictureUrl").src = profile.pictureUrl
+   document.getelementById("pdisplayName").append(profile.displayName)
+   document.getelementById("statusMessage").append(profile.statusMessage)
+ }
+ 
+ function logOut() {
+   liff.logout()
+   window.location.reload()
+ }
+</script>  
+
+</body>
+</html>
